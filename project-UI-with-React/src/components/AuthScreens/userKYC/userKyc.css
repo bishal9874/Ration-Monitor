@@ -1,0 +1,15 @@
+.userkyc_form{
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+
+}
+.paddings.flexCenter.innerWidth.uk-container{
+gap: 2rem;
+}
+.flexCenter.u-header{
+  justify-content: space-between;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding: 10px;
+}

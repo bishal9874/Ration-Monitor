@@ -7,17 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Table.css";
-
-function createData(name, trackingId, date, status,Quantity) {
-  return { name, trackingId, date, status ,Quantity};
-}
-
-const rows = [
-  createData("Rice", 18908424, "2 March 2022", "Approved","10 kg"),
-  createData("Krosin ", 18908424, "2 March 2022", "Pending","1 liter"),
-  createData("Suger", 18908424, "2 March 2022", "Approved","500 gram"),
-  createData("Wheat", 18908421, "2 March 2022", "Delivered","1 kg"),
-];
+import useUserData from "../../../utils/useUserData";
 
 
 const makeStyle=(status)=>{
@@ -44,19 +34,32 @@ const makeStyle=(status)=>{
 }
 
 export default function BasicTable() {
+  const { userData, userKYCData , userRationDetails} = useUserData();
+  function createData(name, trackingId, date, status,Quantity) {
+    
+    return { name, trackingId, date, status ,Quantity};
+  }
+  
+  const rows = [
+    createData("Rice",`${userRationDetails.id}`, `${userRationDetails.nextRationDate}`, "Approved",`${userRationDetails.rice}`),
+    createData("Kerosene ", `${userRationDetails.id}`, `${userRationDetails.nextRationDate}`, "Pending",`${userRationDetails.kerosene}`),
+    createData("oil", `${userRationDetails.id}`, `${userRationDetails.nextRationDate}`, "Approved",`${userRationDetails.oil}`),
+    createData("Wheat", `${userRationDetails.id}`, `${userRationDetails.nextRationDate}`, "Delivered",`${userRationDetails.wheat}`),
+  ];
+  
   return (
       <div className="Table">
       <h3>Ration List</h3>
         <TableContainer
           component={Paper}
-          style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+          style={{ boxShadow: "0px 13px 20px 0px #80808029", backgroundImage:"src/assets/colorfu.jpg" }}
         >
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Product</TableCell>
-                <TableCell align="left">Tracking ID</TableCell>
-                <TableCell align="left">Date</TableCell>
+                {/* <TableCell align="left">Tracking ID</TableCell> */}
+                <TableCell align="left">Next Date</TableCell>
                 <TableCell align="left">Status</TableCell>
                 <TableCell align="left">Quantity</TableCell>
               </TableRow>
@@ -70,7 +73,7 @@ export default function BasicTable() {
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
-                  <TableCell align="left">{row.trackingId}</TableCell>
+                  {/* <TableCell align="left">{row.trackingId}</TableCell> */}
                   <TableCell align="left">{row.date}</TableCell>
                   <TableCell align="left">
                     <span className="status" style={makeStyle(row.status)}>{row.status}</span>

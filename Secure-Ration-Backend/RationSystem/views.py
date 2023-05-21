@@ -15,6 +15,12 @@ from django.contrib.auth import authenticate
 from deepface import DeepFace
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
+from datetime import datetime, timedelta
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.conf import settings
+import datetime
+# access_token_lifetime = settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME']
+
 # Create your views here.
 # 
 
@@ -23,12 +29,27 @@ from rest_framework import generics
 
 #generate Token Manually
 
+# def get_tokens_for_user(user):
+#     refresh = RefreshToken.for_user(user)
+
+#     return {
+#         'refresh': str(refresh),
+#         'access': str(refresh.access_token),
+#     }
+
+from django.conf import settings
+
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
+    access_token = refresh.access_token
+    access_token_lifetime = access_token.lifetime.total_seconds() * 1000  # Convert seconds to milliseconds
+    current_time = datetime.datetime.now().timestamp() * 1000  # Current time in milliseconds
+    expiration_time = current_time + access_token_lifetime
 
     return {
         'refresh': str(refresh),
-        'access': str(refresh.access_token),
+        'access': str(access_token),
+        'access_token_expiration': expiration_time,
     }
 
 #create User Registration
@@ -121,27 +142,6 @@ class FaceAuthenticationView(APIView):
                 }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #create User KYC 
-# class RationKYCCreateAPIView(generics.CreateAPIView):
-#     renderer_classes = [UserRenderer]
-#     permission_classes = [IsAuthenticated]
-#     serializer_class = RationKYCSerializer
-
-#     def perform_create(self, serializer):
-#         user = self.request.user
-#         if RationKYC.objects.filter(user=user).exists():
-#             raise ValidationError('RationKYC data already exists for this user')
-#         serializer.save(user=user)
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.serializer_class(data=request.data)
-#         if serializer.is_valid(raise_exception=True):
-#             self.perform_create(serializer)
-#             token = get_tokens_for_user(request.user)
-#             return Response({
-#                 'token': token,
-#                 'msg': 'User KYC Succeeded'
-#             }, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class RationKYCCreateAPIView(generics.CreateAPIView):
     renderer_classes = [UserRenderer]
     permission_classes = [IsAuthenticated]
@@ -169,29 +169,6 @@ class RationKYCCreateAPIView(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #get users profile 
-
-
-# class RationUserAndKYCView(APIView):
-#     permission_classes = [IsAuthenticated]
-#     def get_object(self):
-#         user = self.request.user
-#         try:
-#             ration_kyc = RationKYC.objects.get(user=user)
-#         except RationKYC.DoesNotExist:
-#             raise ValidationError("RationKYC instance does not exist for this user")
-#         return ration_kyc
-    
-#     def get(self, request, format=None):
-#         user = request.user
-#         ration_kyc = self.get_object()
-#         # serializer = self.serializer_class()
-#         user_serializer = RationUserSerializer(user)
-#         kyc_serializer = RationKYCSerializer(ration_kyc)
-#         response_data = {
-#             'user': user_serializer.data,
-#             'kyc': kyc_serializer.data
-#         }
-#         return Response(response_data, status=status.HTTP_200_OK)
 
 class RationUserAndKYCAndDetailsView(APIView):
     permission_classes = [IsAuthenticated]
@@ -226,10 +203,7 @@ class RationUserAndKYCAndDetailsView(APIView):
         }
         return Response(response_data, status=status.HTTP_200_OK)
 
-
-
-
-
+# password change
     
 class UserChangePasswordView(APIView):
   renderer_classes = [UserRenderer]

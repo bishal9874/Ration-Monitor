@@ -25,5 +25,10 @@
     cursor: pointer;
     font-weight: 400;
   }
+  .remaining{
+    gap: 2rem;
+    display: flex;
+    flex-direction: row;
+  }
   
   

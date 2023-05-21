@@ -111,6 +111,12 @@ a {
 
 
 }
+.contactTitle{
+  color: orangered;
+  font-size: 3rem;
+  font-weight: 500;
+
+}
 /* media queries */
 @media (min-width: 1536px) {
   .innerWidth {

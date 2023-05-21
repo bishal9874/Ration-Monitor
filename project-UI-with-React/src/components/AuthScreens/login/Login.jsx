@@ -16,6 +16,7 @@ import { getToken, storeToken } from "../../../API/localStorage";
 import { setUsertoken } from "../../../features/authSlice";
 import { useEffect } from "react";
 import PasswordPros from "../../../utils/PasswordPros";
+import Footer from "../../Footer/Footer";
 const Login = () => {
   const [server_error, setServerError] = useState({});
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const Login = () => {
       setServerError(res.error.data.errors);
     }
     if (res.data) {
+      console.log(res.data);
       storeToken(res.data.token);
       let { access_token } = getToken();
       dispatch(setUsertoken({ access_token: access_token }));
@@ -80,7 +82,7 @@ const Login = () => {
 
       <div >
       
-       <h3 className="flexStart">Welcome Back !</h3>
+       <h3 className="flexStart primaryText">Welcome Back !</h3>
        <h1 className="secondaryText">Login to Continue</h1>
       <Box component="form" onSubmit={handleLogin}>
          <div className="inputs_container">
@@ -142,6 +144,7 @@ const Login = () => {
       </div>
        
    </section>
+   <Footer/>
    </>
   );
 };

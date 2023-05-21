@@ -18,6 +18,7 @@ import { useSignUp_userMutation } from "../../../API/rationApi";
 import { storeToken, getToken } from "../../../API/localStorage";
 import { setUsertoken } from "../../../features/authSlice";
 import PasswordPros from "../../../utils/PasswordPros";
+import Footer from "../../Footer/Footer";
 
 const Reg = () => {
   const [server_error, setServerError] = useState({});
@@ -91,7 +92,7 @@ const Reg = () => {
      <div className="r-wrapper">
      <section className="paddings flexCenter innerWidth r-container">
         <div>
-        <h3 className="flexStart">Join with Us!</h3>
+        <h3 className="flexStart primaryText">Join with Us!</h3>
        <h1 className="secondaryText">Register to Continue</h1>
           <Box component="form" id="registration-form" onSubmit={handlesubmit}>
             <div className="inputs_container">
@@ -211,6 +212,7 @@ const Reg = () => {
           )}
         </div>
       </section>
+      <Footer/>
      </div>
     </>
   );

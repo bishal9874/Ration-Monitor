@@ -1,31 +1,31 @@
 [
   {
     "name": "Kerosene",
-    "price": "47 per liter",
+    "price": "50 per liter",
     "detail": "Kerosene is a type of fuel oil that is commonly used for heating, cooking, and lighting purposes.",
-    "image": "src/assets/slider/268_EN_Diggers-Kerosene_Front_1.jpg"
+    "image": "src/assets/slider/kerosene.jpg"
   },
   {
     "name": "Flour",
-    "price": "45 per Kg",
+    "price": "free",
     "detail": "Pahlawan Street XVII No.215, Cinangka, Sawangan, Depok, Jawa Barat",
     "image": "src/assets/slider/flour.jpg"
   },
   {
     "name": "Oil",
-    "price": "85 per liter",
+    "price": "free",
     "detail": "Ruko Puri Indah Residence Block A7, Lingkar Street, Ciracas, Serang, Banten",
     "image": "src/assets/slider/oil.jpg"
   },
   {
     "name": "Rice",
-    "price": "30 per kg",
+    "price": "free",
     "detail": "Jakarta Garden City Street, Cakung. Pulo Gadung, Jakarta Timur, DKI Jakarta",
-    "image": "src/assets/slider/rice.jpg"
+    "image": "src/assets/slider/Rice.jpg"
   },
   {
     "name": "Wheat",
-    "price": "28 per kg",
+    "price": "free",
     "detail": "Pahlawan Street XVII No.215, Cinangka, Sawangan, Depok, Jawa Barat",
     "image": "src/assets/slider/wheat.jpg"
   }

@@ -79,6 +79,13 @@ export const rationApi = createApi({
         formData.append('post_office', user.post_office);
         formData.append('pin', user.pin);
         formData.append('Annual_income', user.Annual_income);
+        formData.append('aadharcardNo',user.aadharcardNo);
+        formData.append('phoneNo',user.phoneNo);
+        formData.append('gender',user.gender);
+        formData.append('state',user.state);
+        formData.append('district',user.district);
+        formData.append('fpsCode',user.fpsCode);
+        formData.append('dateofbirth',user.dateofbirth);
         return {
           method: 'POST',
           url: 'rationkyc/',

@@ -5,6 +5,7 @@ import "./App.css";
 import Companies from "./components/Companies/Companies";
 import Services from "./components/services/Services";
 import Contact from "./components/contact/Contact";
+import Footer from './components/Footer/Footer';
 const Layouts = () => {
   return (
     <div className="Layout">
@@ -16,7 +17,7 @@ const Layouts = () => {
         <Companies />
         <Services />
         <Contact/>
-        
+        <Footer/>
       </div>
       
   )

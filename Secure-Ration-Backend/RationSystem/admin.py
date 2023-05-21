@@ -9,8 +9,12 @@ class RationKYCAdmin(admin.ModelAdmin):
     user_photo.short_description = 'User photo'
 
     list_display = ('user', 'user_email','user_rationId','houseNo', 'village', 'post_office', 'pin', 'user_photo')
-    list_filter = ('user__email', 'houseNo', 'village', 'post_office', 'pin','Annual_income')
+    list_filter = ('user__email', 'houseNo', 'village', 'post_office', 'pin','Annual_income','Annual_income',)
     search_fields = ('user__email', 'houseNo', 'village', 'post_office', 'pin')
+    fieldsets = (
+        ('User Credentials', {'fields': ('user',)}),
+        ('KYC Information', {'fields': ('houseNo', 'village', 'post_office', 'pin', 'Annual_income', 'aadharcardNo', 'phoneNo', 'dateofbirth', 'gender', 'state', 'district', 'fpsCode')}),
+    )
    
     def user_email(self, obj):
         return obj.user.email

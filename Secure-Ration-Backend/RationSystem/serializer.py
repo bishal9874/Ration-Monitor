@@ -189,4 +189,4 @@ class RationKYCSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RationKYC
-        fields = ( 'user_email', 'user_name', 'user_rationId', 'user_face_image', 'houseNo', 'village', 'post_office', 'pin','Annual_income')
+        fields = ( 'user_email', 'user_name', 'user_rationId', 'user_face_image', 'houseNo', 'village', 'post_office', 'pin','Annual_income','aadharcardNo','phoneNo','dateofbirth','gender','state','district','fpsCode')

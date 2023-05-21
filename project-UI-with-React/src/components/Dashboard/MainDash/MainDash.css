@@ -1,16 +1,16 @@
 .MainDash{
     /* padding-top: 1rem; */
+    margin-top: 0rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+   gap: 5rem;
     
 }
 
-@media screen and (max-width: 1200px) {
-    .MainDash{
-        justify-content:flex-start;
-        margin-top: 2rem;
-    }
+.Dashcontent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 768px)

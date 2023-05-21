@@ -46,8 +46,7 @@ const FaceAuth = () => {
     } else if (res.data) {
       storeToken(res.data.token);
       console.log(res.data.isfaceVerify);
-      getverify({ isverify: res.data.isfaceVerify });
-
+      localStorage.setItem('isfaceVerify', res.data.isfaceVerify);
       let { access_token } = getToken();
       dispatch(setUsertoken({ access_token: access_token }));
       navigate("/dashboard");

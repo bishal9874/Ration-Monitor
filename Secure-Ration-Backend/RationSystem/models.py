@@ -109,6 +109,15 @@ class RationKYC(models.Model):
     post_office = models.CharField(max_length=255)
     pin = models.CharField(max_length=6)
     Annual_income = models.CharField(max_length=10)
+    aadharcardNo = models.CharField(max_length=14)
+    phoneNo = models.CharField(max_length=10)
+    dateofbirth = models.DateField()
+    gender=models.CharField(max_length=10)
+    state=models.CharField(max_length=40)
+    district=models.CharField(max_length=40)
+    fpsCode=models.CharField(max_length=18)
+
+
     
     def get_card_type(self):
         if int(self.Annual_income) <= 27000:

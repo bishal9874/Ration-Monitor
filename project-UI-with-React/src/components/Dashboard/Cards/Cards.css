@@ -101,9 +101,32 @@
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-
-
 .location:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+.buttonhovering{
+  position: relative;
+  cursor: pointer;
+}
+.buttonhovering::after{
+  content: "Double click to changed Password";
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 120px;
+  transform: translateX(-50%);
+  background-color: #d3c6c6;
+  color: #000000;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.buttonhovering:hover::after{
   opacity: 1;
   visibility: visible;
 }

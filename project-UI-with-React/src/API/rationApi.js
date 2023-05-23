@@ -97,7 +97,23 @@ export const rationApi = createApi({
         };
       },
     }),
+    changepassword: builder.mutation({
+      query: (user,access_token) => {
+        const formData = new FormData();
+        formData.append('password', user.password);
+        formData.append('password2', user.password2);
+        return {
+          method: 'POST',
+          url: 'changepassword/',
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${Cookies.get('access_token')}`,
+            Accept: 'application/json',
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useSignUp_userMutation,useLogin_userMutation,useGetLogged_userQuery,useFaceVerify_userMutation, useUser_kycMutation} = rationApi;
+export const { useSignUp_userMutation,useLogin_userMutation,useGetLogged_userQuery,useFaceVerify_userMutation, useUser_kycMutation,useChangepasswordMutation} = rationApi

@@ -3,13 +3,18 @@ import "./Cards.css";
 import { Typography } from "@mui/material";
 import useUserData from "../../../utils/useUserData";
 import PopUp from "../Popup/PopUp";
+import ChangedPass from "../change password/ChangedPass";
 
 const Cards = () => {
   const { userData, userKYCData, userRationDetails } = useUserData();
   const [showPopup, setShowPopup] = useState(false);
-
+  const [showchngpass, setshowchngpass] = useState();
   const openPopup = () => {
     setShowPopup((prevShowPopup) => !prevShowPopup);
+  };
+
+  const openChangedpassword = () => {
+    setshowchngpass((prevShowPopup) => !prevShowPopup);
   };
   console.log(showPopup);
   const namestrlen = userData.name.length;
@@ -17,22 +22,18 @@ const Cards = () => {
     <section className="d-Wraper">
       <div className="l_Cards">
         <div className="lcard CompactCard">
-          <Typography variant={namestrlen <= 10 ? "h2" : "h3"} color={"black"}>
+          <Typography variant={namestrlen <= 10 ? "h2" : "h4"} color={"black"}>
             {userData.name}
           </Typography>
           <Typography variant="h7" color={"black"} fontWeight={"bold"}>
             Email{" "}
-            <span
-              style={{ padding: "5px", color: "black", fontWeight: "400"}}
-            >
+            <span style={{ padding: "5px", color: "black", fontWeight: "400" }}>
               {userData.email}
             </span>{" "}
           </Typography>
           <Typography variant="h7" color={"black"} fontWeight={"bold"}>
             Ration Id{" "}
-            <span
-              style={{ padding: "5px", color: "black", fontWeight: "400" }}
-            >
+            <span style={{ padding: "5px", color: "black", fontWeight: "400" }}>
               {userData.rationId}
             </span>{" "}
           </Typography>
@@ -41,23 +42,37 @@ const Cards = () => {
             <span
               style={{
                 padding: "5px",
-                color: "black", fontWeight: "400",
+                color: "black",
+                fontWeight: "400",
                 fontFamily: "Nunito Sans",
               }}
             >
               {userKYCData.fpsCode}
             </span>{" "}
           </Typography>
-          <button className="button" style={{ marginTop: "5px" }}>
+          <button
+            className="buttonhovering button "
+            style={{ marginTop: "5px" }}
+            onClick={openChangedpassword}
+          >
             Account Password Change
           </button>
+          {showchngpass && (
+            <PopUp trigger={showchngpass}>
+              <ChangedPass />{" "}
+            </PopUp>
+          )}
         </div>
       </div>
       <div className=" R_Cards">
         <div className="rcard CompactCard">
           <Typography variant="h7">
             {" "}
-            <img src="src/assets/icons/id-card.png" width={20} height={20}/>{" "}
+            <img
+              src="src/assets/icons/id-card.png"
+              width={20}
+              height={20}
+            />{" "}
             <span style={{ fontWeight: "bold" }}>Aadhar No : </span>
             <span
               style={{
@@ -76,7 +91,8 @@ const Cards = () => {
             <span
               style={{
                 padding: "5px",
-                color: "black", fontWeight: "400",
+                color: "black",
+                fontWeight: "400",
                 fontFamily: "Nunito Sans",
               }}
             >
@@ -84,12 +100,11 @@ const Cards = () => {
             </span>{" "}
           </Typography>
           <div className="location" onClick={openPopup}>
-
             <img
               src="src/assets/icons/location-pin.png"
               width={60}
               height={60}
-              style={{marginTop:"12px" }}
+              style={{ marginTop: "12px" }}
             />
             <span>click here </span>
           </div>
@@ -135,17 +150,15 @@ const Cards = () => {
           <h4>CARD TYPE</h4>
           <Typography
             variant="h4"
-           
             className="CardType"
             style={{
-              color: 'blue',
-              textAlign: "center"
+              color: "blue",
+              textAlign: "center",
             }}
           >
             {userRationDetails.cardType}
           </Typography>
         </div>
-        
       </div>
       <div>
         <img

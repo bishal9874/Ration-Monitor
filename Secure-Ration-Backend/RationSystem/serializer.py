@@ -7,8 +7,8 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import face_recognition
 import base64
-
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # user creation Serializer
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -129,36 +129,34 @@ class UserChangePasswordSerializer(serializers.Serializer):
 
 class SendPasswordResetEmailSerializer(serializers.Serializer):
   email = serializers.EmailField(max_length=255)
-  class Meta:
-    fields = ['email']
 
   def validate(self, attrs):
     email = attrs.get('email')
-    if RationUser.objects.filter(email=email).exists():
-      user = RationUser.objects.get(email = email)
-      uid = urlsafe_base64_encode(force_bytes(RationUser.id))
-      print('Encoded UID', uid)
+    if User.objects.filter(email=email).exists():
+      user = User.objects.get(email=email)
+      print('User ID:', user.id)
+      uid = urlsafe_base64_encode(force_bytes(user.id))
+      print('Encoded UID:', uid)
+      
       token = PasswordResetTokenGenerator().make_token(user)
-      print('Password Reset Token', token)
-      link = 'http://localhost:3000/api/user/reset/'+uid+'/'+token
-      print('Password Reset Link', link)
-      # Send EMail
-      body = 'Click Following Link to Reset Your Password '+link
+      print('Password Reset Token:', token)
+      link = 'http://localhost:3000/api/user/reset/' + uid + '/' + token
+      print('Password Reset Link:', link)
+      # Send Email
+      body = 'Click the following link to reset your password: ' + link
       data = {
-        'subject':'Reset Your Password',
-        'body':body,
-        'to_email':RationUser.email
+        'subject': 'Reset Your Password',
+        'body': body,
+        'to_email': user.email
       }
       # Util.send_email(data)
       return attrs
     else:
-      raise serializers.ValidationError('You are not a Registered User')
+      raise serializers.ValidationError('You are not a registered user')
     
 class UserPasswordResetSerializer(serializers.Serializer):
   password = serializers.CharField(max_length=255, style={'input_type':'password'}, write_only=True)
   password2 = serializers.CharField(max_length=255, style={'input_type':'password'}, write_only=True)
-  class Meta:
-    fields = ['password', 'password2']
 
   def validate(self, attrs):
     try:
@@ -167,17 +165,17 @@ class UserPasswordResetSerializer(serializers.Serializer):
       uid = self.context.get('uid')
       token = self.context.get('token')
       if password != password2:
-        raise serializers.ValidationError("Password and Confirm Password doesn't match")
+        raise serializers.ValidationError("Password and Confirm Password don't match")
       id = smart_str(urlsafe_base64_decode(uid))
-      user = RationUser.objects.get(id=id)
+      user = User.objects.get(id=id)
       if not PasswordResetTokenGenerator().check_token(user, token):
-        raise serializers.ValidationError('Token is not Valid or Expired')
+        raise serializers.ValidationError('Token is not valid or has expired')
       user.set_password(password)
       user.save()
       return attrs
     except DjangoUnicodeDecodeError as identifier:
       PasswordResetTokenGenerator().check_token(user, token)
-      raise serializers.ValidationError('Token is not Valid or Expired')
+      raise serializers.ValidationError('Token is not valid or has expired')
     
 
 class RationKYCSerializer(serializers.ModelSerializer):

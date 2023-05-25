@@ -113,7 +113,39 @@ export const rationApi = createApi({
         };
       },
     }),
+    forget_password: builder.mutation({
+      query: (user) => {
+        const formData = new FormData();
+        formData.append('email', user.email);
+        return {
+          method: 'POST',
+          url: 'sent-reset-password-email/',
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        };
+      },
+    }),
+    resetPassword: builder.mutation({
+      query: ({ user, id, token }) => {
+        const formData = new FormData();
+        formData.append('password', user.password);
+        formData.append('password2', user.password2);
+        return {
+          url: `reset-password/${id}/${token}/`,
+          method: 'POST',
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        };
+      },
+    }),
+    
+
+   
   }),
 });
 
-export const { useSignUp_userMutation,useLogin_userMutation,useGetLogged_userQuery,useFaceVerify_userMutation, useUser_kycMutation,useChangepasswordMutation} = rationApi
+export const { useSignUp_userMutation,useLogin_userMutation,useGetLogged_userQuery,useFaceVerify_userMutation, useUser_kycMutation,useChangepasswordMutation,useForget_passwordMutation,useResetPasswordMutation} = rationApi

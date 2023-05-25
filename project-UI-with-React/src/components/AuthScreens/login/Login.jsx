@@ -17,10 +17,13 @@ import { setUsertoken } from "../../../features/authSlice";
 import { useEffect } from "react";
 import PasswordPros from "../../../utils/PasswordPros";
 import Footer from "../../Footer/Footer";
+import PopUp from "../../Dashboard/Popup/PopUp";
+import Forgetpassword from "../forgetpassword/Forgetpassword";
 const Login = () => {
   const [server_error, setServerError] = useState({});
   const navigate = useNavigate();
   const [loginUser, { isLoading }] = useLogin_userMutation();
+  const [showforget,setShowForget] =useState(false);
   const dispatch = useDispatch();
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,6 +54,10 @@ const Login = () => {
   useEffect(() => {
     dispatch(setUsertoken({ access_token: access_token }));
   }, [access_token, dispatch]);
+
+  const handleCloseForget = () => {
+    setShowForget(false);
+  };
 
   return (
    <>
@@ -132,19 +139,22 @@ const Login = () => {
          {isLoading ? (
          <CircularProgress />
        ) : (
-         <button type="submit" className="login_button">
+         <button type="submit" className="login_button" >
            login
          </button>
        )}
 
-       <a href="" style={{alignContent:"center"}}>forget password</a>
+       <a style={{alignContent:"center", cursor:"pointer"}} onClick={() => setShowForget(true)}>forget password</a>
          </div>
        
        </Box>
-      </div>
        
+      </div>
+      {showforget && <Forgetpassword trigger={showforget} onClose={handleCloseForget}></Forgetpassword>}
+
    </section>
    <Footer/>
+   
    </>
   );
 };

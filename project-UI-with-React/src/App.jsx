@@ -14,6 +14,7 @@ import MainDashSection from "./components/Dashboard/MainDashSection/MainDashSect
 import FaceAuth from "./components/AuthScreens/FaceAuth/FaceAuth";
 import Reg from "./components/AuthScreens/Registration/Reg";
 import UserKyc from "./components/AuthScreens/userKYC/UserKyc";
+import ResetPass from "./components/AuthScreens/Reset Pass/ResetPass";
 function App() {
   const [count, setCount] = useState(0);
   const { access_token } = useSelector((state) => state.auth);
@@ -50,6 +51,8 @@ function App() {
         />
         <Route path="/signup" element={access_token && isFaceVerify ? <Navigate to={"/dashboard"}/>:<Reg />} />
         <Route path="/dashboard" element={access_token ? <MainDashSection /> : <Navigate to={"/login"}/> }/>
+        <Route path="api/user/reset/:id/:token" element={<ResetPass/>}/>
+        {/* <Route path="reset/" element={<ResetPass/>}/> */}
       </Routes>
     </BrowserRouter>
   );

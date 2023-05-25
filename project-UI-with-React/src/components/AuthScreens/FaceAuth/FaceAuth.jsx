@@ -93,7 +93,7 @@ const FaceAuth = () => {
      <section>
      
      <div className="flexCenter innerWidth f-body">
-        <p className="primaryText">You have Capture your face only</p>
+        <p className="primaryText">You have to Capture your face only</p>
          <LoginCamera onCapturePhoto={onCapturePhoto} />
         {server_error.errors && server_error.errors.face_image ? (
           <Typography style={{ fontSize: 12, color: "red" }}>
